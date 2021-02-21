@@ -15,8 +15,21 @@ function start( ) {
     console.log("ready");
 
     loadJSON();
+
+    document.querySelector("[data-filter=cat]").addEventListener("click", catButton);
+    document.querySelector("[data-filter=dog]").addEventListener("click", dogButton);
+    document.querySelector("[data-filter=all]").addEventListener("click", loadJSON);
 }
 
+function catButton() {
+    const onlyCats = allAnimals.filter(isCat);
+    displayList(onlyCats);
+}
+
+function dogButton() {
+    const onlyDogs = allAnimals.filter(isDog);
+    displayList(onlyDogs);
+}
 
 function loadJSON() {
     fetch("animals.json")
@@ -43,7 +56,7 @@ function prepareObjects( jsonData ) {
         allAnimals.unshift(animal);
     });
 
-    displayList();
+    displayList(allAnimals);
 }
 
 function displayList() {
@@ -69,3 +82,18 @@ function displayAnimal( animal ) {
 }
 
 
+function isCat(animal) {
+    if (animal.value === "cat") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function isDog(animal) {
+    if (animal.value === "dog") {
+        return true;
+    } else {
+        return false;
+    }
+}
